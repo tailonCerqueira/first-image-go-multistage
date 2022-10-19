@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  go:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - .:/opt/app/api
+    image: tailoncerqueira/codeeducation
+    container_name: go
+    networks:
+      - go
+
+networks:
+  go:
+    driver: bridge
