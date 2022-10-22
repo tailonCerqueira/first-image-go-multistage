@@ -1,12 +1,17 @@
 FROM golang:1.19-alpine AS multistage
-WORKDIR /
+WORKDIR /usr/src/desafio
 
-COPY main.go ./
+COPY . .
 
-RUN apk add --no-cache bash
-RUN go run main.go
+RUN go mod init testedesafio
+RUN go build -o teste
+
+# RUN apk add --no-cache bash
+# RUN go run main.go
 
 FROM scratch
 
-COPY --from=multistage / .
-CMD ["./main"]
+WORKDIR /usr/src/desafio
+
+COPY --from=multistage /usr/src/desafio .
+CMD ["./teste"]
